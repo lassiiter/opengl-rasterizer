@@ -32,12 +32,23 @@ int main()
 	// Core profile only includes modern functions
 	glfwWindowHint(GLFW_OPENGL_ANY_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Vertice coords
-	GLfloat verticies[] =
+	// Vertices coordinates
+	GLfloat vertices[] =
 	{
-		-0.5f,-0.5f * float(sqrt(3)) / 3, 0.0f,
-		0.5f,-0.5f * float(sqrt(3)) / 3, 0.0f,
-		0.0f,0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
+		-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
+		0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
+		0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
+		-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner left
+		0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner right
+		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
+	};
+
+	// Indices for vertices order
+	GLuint indices[] =
+	{
+		0, 3, 5, // Lower left triangle
+		3, 2, 4, // Upper triangle
+		5, 4, 1 // Lower right triangle
 	};
 
 	// Create window
@@ -90,11 +101,12 @@ int main()
 
 
 	// Create reference containers
-	GLuint VAO, VBO;
+	GLuint VAO, VBO, EBO;
 
 	// Generate VAO and VBO with only 1 obj
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 
 	// Make the VAO the current Vertex Array
 	glBindVertexArray(VAO);
@@ -102,7 +114,10 @@ int main()
 	// Bind the VBO specifying its a GL_ARRAY_BUFFER
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	// Introduce the vertices into the VBO
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// Configure the Vertex Attrib so the OpenGL knows how to read VBO
 	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(float),(void*)0 );
@@ -112,15 +127,20 @@ int main()
 	// Bind
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	while(!glfwWindowShouldClose(window))
 	{
-
+		// Specify Color of background
 		glClearColor(.1f, .1f, .1f, 1.0f);
+		// Clean back buffer and assign new color
 		glClear(GL_COLOR_BUFFER_BIT);
+		// Tell what program to use
 		glUseProgram(shaderProgram);
+		// Bind VAO
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 		glfwSwapBuffers(window);
 
 		// Take care of all GLFW events
@@ -131,7 +151,7 @@ int main()
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteProgram(shaderProgram);
-
+	glDeleteBuffers(1, &EBO);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
