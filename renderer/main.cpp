@@ -1,32 +1,37 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-
-#include"shaderClass.h"
+#include"shader.h"
 #include"VAO.h"
 #include"VBO.h"
 #include"EBO.h"
 
 // Vertices coordinates
-GLfloat vertices[] =
-{
-	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-	0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f, // Upper corner
-	-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner left
-	0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f, // Inner right
-	0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
+GLfloat vertices[] = {
+	// positions         // colors
+	 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+	-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+	 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
+};
+
+float firstTriangle[] = {
+	//indicies			   //color
+	   -0.9f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,  // left 
+	   -0.0f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,  // right
+	   -0.45f, 0.5f, 0.0f, 1.0f,0.0f,0.0f,  // top 
+};
+float secondTriangle[] = {
+	0.0f, -0.5f, 0.0f,  // left
+	0.9f, -0.5f, 0.0f,  // right
+	0.45f, 0.5f, 0.0f   // top 
 };
 
 // Indices for vertices order
 GLuint indices[] =
 {
-	0, 3, 5, // Lower left triangle
-	3, 2, 4, // Lower right triangle
-	5, 4, 1 // Upper triangle
+	0,1,2,
+	1,2,3
 };
-
-
 
 int main()
 {
@@ -41,8 +46,8 @@ int main()
 	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-	GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
+	// Create a GLFWwindow object of 800 by 800 pixels, naming it "OpenGL"
+	GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGL", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
 	{
@@ -58,30 +63,36 @@ int main()
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, 800, 800);
-
-
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Generates Shader object using shaders defualt.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
-
-
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
 	VAO1.Bind();
-
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO VBO1(vertices, sizeof(vertices));
-	// Generates Element Buffer Object and links it to indices
-	EBO EBO1(indices, sizeof(indices));
-
 	// Links VBO to VAO
 	VAO1.LinkVBO(VBO1, 0);
-	// Unbind all to prevent accidentally modifying them
-	VAO1.Unbind();
-	VBO1.Unbind();
-	EBO1.Unbind();
 
+	VAO VAO2;
+	VAO2.Bind();
+	VBO VBO2(secondTriangle, sizeof(secondTriangle));
+	VAO2.LinkVBO(VBO2, 0);
+
+	// Generates Element Buffer Object and links it to indices
+	// EBO EBO1(indices, sizeof(indices));
+
+	// Unbind all to prevent accidentally modifying them
+
+	//VAO1.Unbind();
+	//VAO2.Unbind();
+
+	//VBO1.Unbind();
+	//VBO2.Unbind();
+
+	// EBO1.Unbind();
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -91,22 +102,26 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 		shaderProgram.Activate();
+		shaderProgram.setFloat("testfloat", 1.0f);
 		// Bind the VAO so OpenGL knows to use it
 		VAO1.Bind();
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
 	}
-
-
-
 	// Delete all the objects we've created
 	VAO1.Delete();
+	VAO2.Delete();
+
 	VBO1.Delete();
-	EBO1.Delete();
+	VBO2.Delete();
+
+	//EBO1.Delete();
 	shaderProgram.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
