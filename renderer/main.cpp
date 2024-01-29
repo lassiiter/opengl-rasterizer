@@ -1,36 +1,24 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-#include"shader.h"
+
+#include"shaderClass.h"
 #include"VAO.h"
 #include"VBO.h"
 #include"EBO.h"
 
+
+
 // Vertices coordinates
-GLfloat vertices[] = {
-	// positions         // colors
-	 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-	-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-	 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
+float vertices[] = {
+		0.5f,  0.5f, 0.0f,  1.0f,0.0f,0.0f,// top right
+		0.5f, -0.5f, 0.0f,  0.0f,1.0f,0.0f,// bottom right
+	   -0.5f, -0.5f, 0.0f,  0.0f,0.0f,1.0f,// bottom left
+	   -0.5f,  0.5f, 0.0f,   0.0f,1.0f,0.0f,// top left 
 };
-
-float firstTriangle[] = {
-	//indicies			   //color
-	   -0.9f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,  // left 
-	   -0.0f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,  // right
-	   -0.45f, 0.5f, 0.0f, 1.0f,0.0f,0.0f,  // top 
-};
-float secondTriangle[] = {
-	0.0f, -0.5f, 0.0f,  // left
-	0.9f, -0.5f, 0.0f,  // right
-	0.45f, 0.5f, 0.0f   // top 
-};
-
-// Indices for vertices order
-GLuint indices[] =
-{
-	0,1,2,
-	1,2,3
+unsigned int indices[] = {  // note that we start from 0!
+	0, 1, 3,  // first Triangle
+	1, 2, 3   // second Triangle
 };
 
 int main()
@@ -46,8 +34,8 @@ int main()
 	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a GLFWwindow object of 800 by 800 pixels, naming it "OpenGL"
-	GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGL", NULL, NULL);
+	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
+	GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
 	// Error check if the window fails to create
 	if (window == NULL)
 	{
@@ -63,36 +51,35 @@ int main()
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, 800, 800);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+
 
 	// Generates Shader object using shaders defualt.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
+
+
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
 	VAO1.Bind();
+
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO VBO1(vertices, sizeof(vertices));
-	// Links VBO to VAO
-	VAO1.LinkVBO(VBO1, 0);
-
-	VAO VAO2;
-	VAO2.Bind();
-	VBO VBO2(secondTriangle, sizeof(secondTriangle));
-	VAO2.LinkVBO(VBO2, 0);
-
 	// Generates Element Buffer Object and links it to indices
-	// EBO EBO1(indices, sizeof(indices));
+	EBO EBO1(indices, sizeof(indices));
 
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
 
-	//VAO1.Unbind();
-	//VAO2.Unbind();
+	// Gets ID of uniform called "scale"
+	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
-	//VBO1.Unbind();
-	//VBO2.Unbind();
 
-	// EBO1.Unbind();
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -102,26 +89,24 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
 		shaderProgram.Activate();
-		shaderProgram.setFloat("testfloat", 1.0f);
+		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
+		glUniform1f(uniID, 0.5f);
 		// Bind the VAO so OpenGL knows to use it
 		VAO1.Bind();
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		
 		// Draw primitives, number of indices, datatype of indices, index of indices
-		// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
 	}
+
+
+
 	// Delete all the objects we've created
 	VAO1.Delete();
-	VAO2.Delete();
-
 	VBO1.Delete();
-	VBO2.Delete();
-
-	//EBO1.Delete();
+	EBO1.Delete();
 	shaderProgram.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
