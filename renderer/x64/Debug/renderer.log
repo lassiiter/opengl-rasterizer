@@ -1,2 +1,4 @@
 ﻿  main.cpp
+C:\Users\Lassiter\Documents\GitHub\renderer\renderer\main.cpp(200,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Lassiter\Documents\GitHub\renderer\renderer\main.cpp(257,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   renderer.vcxproj -> C:\Users\Lassiter\Documents\GitHub\renderer\renderer\x64\Debug\renderer.exe
