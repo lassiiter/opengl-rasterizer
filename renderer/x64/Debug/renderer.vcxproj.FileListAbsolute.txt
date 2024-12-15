@@ -1,2 +1,0 @@
-C:\Users\xxlassi\Documents\GitHub\renderer\renderer\x64\Debug\renderer.exe
-C:\Users\Lassiter\Documents\GitHub\renderer\renderer\x64\Debug\renderer.exe
