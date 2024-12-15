@@ -160,6 +160,8 @@
     <Text Include="resources\objects\backpack\source_attribution.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="1.model_loading.fs" />
+    <None Include="1.model_loading.vs" />
     <None Include="default.frag" />
     <None Include="resources\objects\backpack\backpack.mtl" />
   </ItemGroup>

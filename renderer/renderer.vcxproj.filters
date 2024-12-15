@@ -52,6 +52,12 @@
     <None Include="resources\objects\backpack\backpack.mtl">
       <Filter>resources\objects\backpack</Filter>
     </None>
+    <None Include="1.model_loading.fs">
+      <Filter>resources\Shaders</Filter>
+    </None>
+    <None Include="1.model_loading.vs">
+      <Filter>resources\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
