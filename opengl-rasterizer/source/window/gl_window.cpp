@@ -86,12 +86,12 @@ namespace nwindow
 
     if (glfwGetKey(mWindow, GLFW_KEY_W) == GLFW_PRESS)
     {
-      mSceneView->on_mouse_wheel(-0.4f);
+      mSceneView->on_mouse_wheel(0.4f);
     }
 
     if (glfwGetKey(mWindow, GLFW_KEY_S) == GLFW_PRESS)
     {
-      mSceneView->on_mouse_wheel(0.4f);
+      mSceneView->on_mouse_wheel(-0.4f);
     }
 
     if (glfwGetKey(mWindow, GLFW_KEY_F) == GLFW_PRESS)

@@ -83,7 +83,7 @@ namespace nelems
 
 		void on_mouse_wheel(double delta)
 		{
-			set_distance(delta * 0.5f);
+			set_distance(delta * -0.5f);
 
 			update_view_matrix();
 		}
