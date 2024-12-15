@@ -82,7 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Lassiter\Documents\GitHub\renderer\renderer\Libraries\include;C:\Users\xxlassi\Documents\GitHub\renderer\renderer\Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Lassiter\Documents\GitHub\renderer\renderer\Libraries\include;C:\Users\xxlassi\Documents\GitHub\renderer\renderer\Libraries\include;C:\Users\Lassiter\Documents\GitHub\renderer\renderer\src\headers;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Lassiter\Documents\GitHub\renderer\renderer\Libraries\lib;C:\Users\xxlassi\Documents\GitHub\renderer\renderer\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,28 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="stb.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="default.vert" />
     <Text Include="resources\objects\backpack\source_attribution.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="1.model_loading.fs" />
-    <None Include="1.model_loading.vs" />
-    <None Include="default.frag" />
     <None Include="resources\objects\backpack\backpack.mtl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="EBO.h" />
-    <ClInclude Include="mesh.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="VAO.h" />
-    <ClInclude Include="VBO.h" />
+    <None Include="resources\shaders\default.fs" />
+    <None Include="resources\shaders\default.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Downloads\checker.jpg" />
@@ -187,6 +171,17 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\headers\camera.h" />
+    <ClInclude Include="src\headers\mesh.h" />
+    <ClInclude Include="src\headers\model.h" />
+    <ClInclude Include="src\headers\shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stb.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
