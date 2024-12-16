@@ -2,6 +2,7 @@
 
 #include "elems/camera.h"
 #include "elems/mesh.h"
+#include "elems/model.h"
 #include "elems/light.h"
 #include "shader/shader_util.h"
 #include "render/opengl_buffer_manager.h"
@@ -40,6 +41,8 @@ namespace nui
 
     void load_mesh(const std::string& filepath);
 
+    void load_model(const std::string& filepath);
+
     void set_mesh(std::shared_ptr<nelems::Mesh> mesh)
     {
       mMesh = mesh;
@@ -62,6 +65,7 @@ namespace nui
     std::unique_ptr<nshaders::Shader> mShader;
     std::unique_ptr<nelems::Light> mLight;
     std::shared_ptr<nelems::Mesh> mMesh;
+    std::shared_ptr<nelems::Model> mModel;
     glm::vec2 mSize;
   };
 }

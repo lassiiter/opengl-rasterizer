@@ -29,8 +29,14 @@ namespace nui
       mMesh = std::make_shared<nelems::Mesh>();
     
     mMesh->load(filepath);
-    
+  }
 
+  void SceneView::load_model(const std::string& filepath)
+  {
+      if (!mModel)
+          mModel = std::make_shared<nelems::Model>();
+
+      mModel->load(filepath);
   }
 
   void SceneView::render()
