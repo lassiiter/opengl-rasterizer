@@ -10,7 +10,6 @@ namespace nui
     ImGui::Begin("Properties");
     if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
     {
-      
       if (ImGui::Button("Open..."))
       {
         mFileDialog.Open();
