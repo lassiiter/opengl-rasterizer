@@ -9,6 +9,7 @@ namespace nelems
     Left = 0,
     Right = 1,
     Middle = 2,
+    Alt_Left = 3,
     None = 9
   };
 
@@ -19,7 +20,9 @@ namespace nelems
     {
       EInputButton result = EInputButton::None;
 
-      if (glfwGetMouseButton(window, 0) == GLFW_PRESS)
+      if ((glfwGetMouseButton(window, 0) == GLFW_PRESS) && (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS))
+          return EInputButton::Alt_Left;
+      else if (glfwGetMouseButton(window, 0) == GLFW_PRESS)
         return EInputButton::Left;
       else if (glfwGetMouseButton(window, 1) == GLFW_PRESS)
         return EInputButton::Right;
