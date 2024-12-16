@@ -99,7 +99,7 @@ namespace nelems
 		{
 			glm::vec2 pos2d{ x, y };
 
-			if (button == EInputButton::Right)
+			if (button == EInputButton::Alt_Left)
 			{
 				glm::vec2 delta = (pos2d - mCurrentPos2d) * 0.004f;
 
