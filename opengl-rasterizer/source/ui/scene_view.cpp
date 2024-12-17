@@ -23,14 +23,6 @@ namespace nui
     mCamera->on_mouse_wheel(delta);
   }
 
-  void SceneView::load_mesh(const std::string& filepath)
-  {
-    if(!mMesh)
-      mMesh = std::make_shared<nelems::Mesh>();
-    
-    mMesh->load(filepath);
-  }
-
   void SceneView::load_model(const std::string& filepath)
   {
       if (!mModel)
@@ -48,10 +40,10 @@ namespace nui
 
     mFrameBuffer->bind();
 
-    if (mMesh)
+    if (mModel)
     {
-      mMesh->update(mShader.get());
-      mMesh->render();
+       mModel->update(mShader.get());
+       mModel->render();
     }
 
     mFrameBuffer->unbind();
