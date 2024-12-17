@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "mesh.h"
-#include "shader/shader_util.cpp"
-
+#include "shader/shader_util.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
@@ -10,19 +9,27 @@
 #include <vector>
 namespace nelems
 {
-    class Model
+    class Model : public Element
     {
     public:
         // model data 
-        std::vector<Mesh> meshes;
+        std::vector<std::shared_ptr<nelems::Mesh>> meshes;
 
-        Model();
+        void render();
 
-        void Draw(nshaders::Shader& shader);
+        void load(std::string const& filepath);
 
-        void load(std::string const& path);
+        void update(nshaders::Shader* shader) override
+        {
+            // pbr color
+            shader->set_vec3(mColor, "albedo");
+            shader->set_f1(mRoughness, "roughness");
+            shader->set_f1(mMetallic, "metallic");
+            shader->set_f1(1.0f, "ao");
+        }
 
-    private:
-        
+        glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
+        float mRoughness = 0.2f;
+        float mMetallic = 0.1f;
     };
 }

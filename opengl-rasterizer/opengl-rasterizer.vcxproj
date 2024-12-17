@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\elems\model.cpp" />
+    <ClCompile Include="source\elems\model.h" />
     <ClCompile Include="source\ui\scene_view.cpp" />
     <ClCompile Include="source\ui\property_panel.cpp" />
     <ClCompile Include="source\render\opengl_context.cpp" />
