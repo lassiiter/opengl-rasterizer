@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "shader_util.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 namespace nshaders
 {
 	unsigned int Shader::get_compiled_shader(unsigned int shader_type, const std::string& shader_source)
@@ -98,6 +101,38 @@ namespace nshaders
   {
     GLint myLoc = glGetUniformLocation(get_program_id(), name.c_str());
     glProgramUniform4fv(get_program_id(), myLoc, 1, glm::value_ptr(vec4));
+  }
+
+  void Shader::set_tex(const std::string& filePath, const std::string& name)
+  {
+	  unsigned int texture;
+	  int width, height, nrChannels;
+
+	  glGenTextures(1, &texture);
+	  glBindTexture(GL_TEXTURE_2D, texture);
+	  // set the texture wrapping parameters
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	  // set texture filtering parameters
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	  // load image, create texture and generate mipmaps
+	  unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+	  if (data)
+	  {
+		  // note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
+		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		  glGenerateMipmap(GL_TEXTURE_2D);
+	  }
+	  else
+	  {
+		  std::cout << "Failed to load texture" << std::endl;
+	  }
+	  stbi_image_free(data);
+
+	  GLint myLoc = glGetUniformLocation(get_program_id(), name.c_str());
+	  glUniform1i(myLoc, 0);
+	  std::cout << "we make it here?" << std::endl;
   }
 }
 

@@ -182,6 +182,7 @@
     <ClCompile Include="source\shader\shader_util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\LearnOpenGL\includes\stb_image.h" />
     <ClInclude Include="source\3rdparty\plugins\imgui\ImFileBrowser.h" />
     <ClInclude Include="source\utils\imgui_widgets.h" />
     <ClInclude Include="source\ui\scene_view.h" />
