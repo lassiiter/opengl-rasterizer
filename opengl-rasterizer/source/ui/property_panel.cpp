@@ -23,6 +23,12 @@ namespace nui
       ImGui::ColorPicker3("Color", (float*)&model->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB);
       ImGui::SliderFloat("Roughness", &model->mRoughness, 0.0f, 1.0f);
       ImGui::SliderFloat("Metallic", &model->mMetallic, 0.0f, 1.0f);
+      if (ImGui::Button("BaseColor"))
+      {
+          mTexFileDialog.Open();
+      }
+      ImGui::SameLine(0, 5.0f);
+      ImGui::Text(mTexCurrentFile.c_str());
     }
 
     if (ImGui::CollapsingHeader("Light"))
@@ -45,6 +51,17 @@ namespace nui
       mMeshLoadCallback(file_path);
 
       mFileDialog.ClearSelected();
+    }
+    mTexFileDialog.Display();
+
+    if (mTexFileDialog.HasSelected())
+    {
+        auto file_path = mTexFileDialog.GetSelected().string();
+        mTexCurrentFile = file_path.substr(file_path.find_last_of("/\\") + 1);
+
+        mTexLoadCallback(file_path);
+
+        mTexFileDialog.ClearSelected();
     }
 
   }

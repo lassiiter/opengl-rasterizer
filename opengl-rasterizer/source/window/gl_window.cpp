@@ -22,6 +22,9 @@ namespace nwindow
     mPropertyPanel->set_mesh_load_callback(
       [this](std::string filepath) { mSceneView->load_model(filepath); });
 
+    mPropertyPanel->set_texture_load_callback(
+        [this](std::string filepath) { mSceneView->load_texture(filepath); });
+
     return mIsRunning;
   }
 
