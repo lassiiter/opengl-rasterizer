@@ -37,16 +37,16 @@ namespace nelems
             std::cout << "ERROR::ASSIMP:: " << Importer.GetErrorString() << std::endl;
             return;
         }
-
         // process ASSIMP's root node recursively
         aiNode* node = pScene->mRootNode;
-        for (unsigned int i = 0; i < node->mNumMeshes; i++)
+        for (unsigned int i = 0; i < pScene->mNumMeshes; i++)
         {
             // the node object only contains indices to index the actual objects in the scene. 
             // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
-            aiMesh* ai_mesh = pScene->mMeshes[node->mMeshes[i]];
+            aiMesh* ai_mesh = pScene->mMeshes[i];
             std::shared_ptr<nelems::Mesh> mesh = std::make_shared<nelems::Mesh>();
             mesh->load(ai_mesh);
+            std::cout << "adding meshes here" << std::endl;
             meshes.push_back(mesh);
         }
     }
