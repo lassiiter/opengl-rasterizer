@@ -20,7 +20,7 @@ namespace nwindow
     mPropertyPanel = std::make_unique<Property_Panel>();
 
     mPropertyPanel->set_mesh_load_callback(
-      [this](std::string filepath) { mSceneView->load_mesh(filepath); });
+      [this](std::string filepath) { mSceneView->load_model(filepath); });
 
     return mIsRunning;
   }

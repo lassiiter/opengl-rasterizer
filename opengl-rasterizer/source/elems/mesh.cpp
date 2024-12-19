@@ -21,28 +21,12 @@ namespace nelems
     delete_buffers();
   }
 
-  bool Mesh::load(const std::string& filepath)
+  void Mesh::load(aiMesh* ai_mesh)
   {
-    const uint32_t cMeshImportFlags =
-      aiProcess_CalcTangentSpace |
-      aiProcess_Triangulate |
-      aiProcess_SortByPType |
-      aiProcess_GenNormals |
-      aiProcess_GenUVCoords |
-      aiProcess_OptimizeMeshes |
-      aiProcess_ValidateDataStructure;
-
-    Assimp::Importer Importer;
-
-    const aiScene* pScene = Importer.ReadFile(filepath.c_str(),
-      cMeshImportFlags);
-
-    if (pScene && pScene->HasMeshes())
-    {
       mVertexIndices.clear();
       mVertices.clear();
 
-      auto* mesh = pScene->mMeshes[0];
+      auto* mesh = ai_mesh;
 
       for (uint32_t i = 0; i < mesh->mNumVertices; i++)
       {
@@ -62,9 +46,6 @@ namespace nelems
       }
 
       init();
-      return true;
-    }
-    return false;
   }
 
   void Mesh::create_buffers()
