@@ -12,7 +12,6 @@ namespace nelems
     {
         for (unsigned int i = 0; i < meshes.size(); i++)
         {
-            std::cout << meshes.size() << std::endl;
             meshes[i]->render();
         }
     }
