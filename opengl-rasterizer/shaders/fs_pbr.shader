@@ -3,12 +3,15 @@
 out vec4 FragColor;
 in vec3 WorldPos;
 in vec3 Normal;
+in vec2 TexCoords;
 
 // material parameters
 uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
 uniform float ao;
+uniform sampler2D texture_diffuse;
+
 
 // lights
 uniform vec3 lightPosition;
@@ -117,5 +120,7 @@ void main()
   // gamma correct
   color = pow(color, vec3(1.0 / 2.2));
 
-  FragColor = vec4(color, 1.0);
+  //FragColor = vec4(TexCoords.x,TexCoords.x,TexCoords.x,1.0);
+  FragColor = texture(texture_diffuse, TexCoords);
+  //FragColor = vec4(color, 1.0);
 }
