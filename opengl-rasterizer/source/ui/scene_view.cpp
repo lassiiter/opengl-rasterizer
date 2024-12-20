@@ -34,6 +34,7 @@ namespace nui
   void SceneView::load_texture(const std::string& filepath)
   {
       std::cout << "load_texture" << std::endl;
+      std::cout << "filepath" << filepath << std::endl;
       mShader->set_tex(filepath, "BaseColor");
   }
 

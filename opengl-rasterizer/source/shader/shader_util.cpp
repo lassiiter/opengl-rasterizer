@@ -107,6 +107,7 @@ namespace nshaders
   {
 	  unsigned int texture;
 	  int width, height, nrChannels;
+	  stbi_set_flip_vertically_on_load(true);
 
 	  glGenTextures(1, &texture);
 	  glBindTexture(GL_TEXTURE_2D, texture);
@@ -120,8 +121,8 @@ namespace nshaders
 	  unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
 	  if (data)
 	  {
-		  // note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
-		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		  std::cout << "Succcessfully to load texture" << std::endl;
+		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		  glGenerateMipmap(GL_TEXTURE_2D);
 	  }
 	  else
@@ -132,6 +133,8 @@ namespace nshaders
 
 	  GLint myLoc = glGetUniformLocation(get_program_id(), name.c_str());
 	  glUniform1i(myLoc, 0);
+	  glActiveTexture(GL_TEXTURE0);
+	  glBindTexture(GL_TEXTURE_2D, texture);
 	  std::cout << "we make it here?" << std::endl;
   }
 }

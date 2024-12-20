@@ -6,7 +6,7 @@ namespace nelems
   {
 
   public:
-    VertexHolder() : mPos(), mNormal() {}
+    VertexHolder() : mPos(), mNormal(), mTexCoords() {}
     
     // Initialize by string to be tokenized
     // TODO: Better handle outside of this class
@@ -14,8 +14,8 @@ namespace nelems
     {
     }
 
-    VertexHolder(const glm::vec3& pos, const glm::vec3& normal)
-      : mPos(pos), mNormal(normal)
+    VertexHolder(const glm::vec3& pos, const glm::vec3& normal, const glm::vec2& uvs)
+      : mPos(pos), mNormal(normal), mTexCoords(uvs)
     {
     }
 
@@ -26,10 +26,7 @@ namespace nelems
 
     glm::vec3 mNormal;
 
-    // TODO
-    // glm::vec2 mUV;
-
-
+    glm::vec2 mTexCoords;
   };
 }
 
