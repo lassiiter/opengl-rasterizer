@@ -19,7 +19,7 @@ namespace nui
       mTexCurrentFile = "< ... >";
 
       mFileDialog.SetTitle("Open mesh");
-      mFileDialog.SetFileFilters({ ".fbx", ".obj" });
+      mFileDialog.SetFileFilters({ ".fbx", ".obj",".gltf"});
 
       mTexFileDialog.SetTitle("Open texture");
     }
@@ -43,7 +43,6 @@ namespace nui
 
     std::function<void(const std::string&)> mMeshLoadCallback;
     std::function<void(const std::string&)> mTexLoadCallback;
-
 
     std::string mCurrentFile;
     std::string mTexCurrentFile;
