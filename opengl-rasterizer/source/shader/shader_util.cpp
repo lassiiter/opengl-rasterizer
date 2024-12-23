@@ -135,7 +135,6 @@ namespace nshaders
 	  glUniform1i(myLoc, 0);
 	  glActiveTexture(GL_TEXTURE0);
 	  glBindTexture(GL_TEXTURE_2D, texture);
-	  std::cout << "we make it here?" << std::endl;
   }
 }
 

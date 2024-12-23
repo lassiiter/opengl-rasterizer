@@ -23,7 +23,7 @@ namespace nui
       ImGui::ColorPicker3("Color", (float*)&model->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB);
       ImGui::SliderFloat("Roughness", &model->mRoughness, 0.0f, 1.0f);
       ImGui::SliderFloat("Metallic", &model->mMetallic, 0.0f, 1.0f);
-      if (ImGui::Button("BaseColor"))
+      if (ImGui::Button("Albedo"))
       {
           mTexFileDialog.Open();
       }

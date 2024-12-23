@@ -41,6 +41,7 @@ namespace nui
 
     void load_model(const std::string& filepath);
     void load_texture(const std::string& filepath);
+    void load_starting_scene(const std::string& model_filepath, const std::string& albedo_filepath);
 
     void set_model(std::shared_ptr<nelems::Model> mesh)
     {
