@@ -37,11 +37,7 @@ namespace nelems
 
     void unbind();
 
-    void update(nshaders::Shader* shader) override
-    {
-        // pbr color
-        shader->set_f1(1.0f, "ao");
-    }
+    void update(nshaders::Shader* shader) override{  }
 
   private:
     
