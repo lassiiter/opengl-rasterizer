@@ -6,7 +6,7 @@ in vec3 Normal;
 in vec2 TexCoords;
 
 // material parameters
-uniform vec3 albedo;
+// uniform vec3 albedo;
 uniform float metallic;
 uniform float roughness;
 uniform float ao;
@@ -65,6 +65,7 @@ void main()
 {
   vec3 N = normalize(Normal);
   vec3 V = normalize(camPos - WorldPos);
+  vec3 albedo = (texture(texture_diffuse, TexCoords)).rgb;
 
   // calculate reflectance at normal incidence; if dia-electric (like plastic) use F0 
   // of 0.04 and if it's a metal, use the albedo color as F0 (metallic workflow)    
@@ -120,7 +121,6 @@ void main()
   // gamma correct
   color = pow(color, vec3(1.0 / 2.2));
 
-  //FragColor = vec4(TexCoords.x,TexCoords.x,TexCoords.x,1.0);
-  FragColor = texture(texture_diffuse, TexCoords);
-  //FragColor = vec4(color, 1.0);
+  //FragColor = texture(texture_diffuse, TexCoords);
+  FragColor = vec4(color, 1.0);
 }

@@ -25,6 +25,7 @@ namespace nui
 
   void SceneView::load_model(const std::string& filepath)
   {
+      std::cout << "Loading model at" << filepath << std::endl;
       if (!mModel)
           mModel = std::make_shared<nelems::Model>();
 
@@ -33,9 +34,14 @@ namespace nui
 
   void SceneView::load_texture(const std::string& filepath)
   {
-      std::cout << "load_texture" << std::endl;
-      std::cout << "filepath" << filepath << std::endl;
-      mShader->set_tex(filepath, "BaseColor");
+      std::cout << "Loading texture at" << filepath << std::endl;
+      mShader->set_tex(filepath, "Albedo");
+  }
+
+  void SceneView::load_starting_scene(const std::string& mode_filepath, const std::string& albedo_filepath)
+  {
+      this->load_model(mode_filepath);
+      this->load_texture(albedo_filepath);
   }
 
   void SceneView::render()
