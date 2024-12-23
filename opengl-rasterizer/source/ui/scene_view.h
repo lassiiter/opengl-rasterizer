@@ -40,6 +40,7 @@ namespace nui
     void render();
 
     void load_model(const std::string& filepath);
+    void load_texture(const std::string& filepath);
 
     void set_model(std::shared_ptr<nelems::Model> mesh)
     {

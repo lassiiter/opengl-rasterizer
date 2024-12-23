@@ -16,9 +16,12 @@ namespace nui
     Property_Panel()
     {
       mCurrentFile = "< ... >";
+      mTexCurrentFile = "< ... >";
 
       mFileDialog.SetTitle("Open mesh");
       mFileDialog.SetFileFilters({ ".fbx", ".obj" });
+
+      mTexFileDialog.SetTitle("Open texture");
     }
 
     void render(nui::SceneView* mScene);
@@ -28,14 +31,22 @@ namespace nui
       mMeshLoadCallback = callback;
     }
 
+    void set_texture_load_callback(const std::function<void(const std::string&)>& callback)
+    {
+        mTexLoadCallback = callback;
+    }
+
   private:
     // create a file browser instance
     ImGui::FileBrowser mFileDialog;
+    ImGui::FileBrowser mTexFileDialog;
 
     std::function<void(const std::string&)> mMeshLoadCallback;
+    std::function<void(const std::string&)> mTexLoadCallback;
+
 
     std::string mCurrentFile;
-
+    std::string mTexCurrentFile;
 
   };
 }
