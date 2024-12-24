@@ -3,6 +3,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#include <map>
+
 
 namespace nshaders
 {
@@ -17,7 +19,7 @@ namespace nshaders
 		GLint result;
 		glGetShaderiv(shader_id, GL_COMPILE_STATUS, &result);
 
-		if (result == GL_FALSE)
+		if (result == GL_FALSE || !result)
 		{
 			int length;
 			glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &length);
@@ -105,8 +107,19 @@ namespace nshaders
 
   void Shader::set_tex(const std::string& filePath, const std::string& name)
   {
+	  std::map<std::string, int> texture_unit_map;
+	  texture_unit_map["albedo"] = GL_TEXTURE0;
+	  texture_unit_map["orm"] = GL_TEXTURE1;
+	  texture_unit_map["normal"] = GL_TEXTURE2;
+
+	  std::map<std::string, int> texture_uniform_id;
+	  texture_uniform_id["albedo"] = 0;
+	  texture_uniform_id["orm"] = 1;
+	  texture_uniform_id["normal"] = 2;
+
 	  unsigned int texture;
 	  int width, height, nrChannels;
+
 	  stbi_set_flip_vertically_on_load(true);
 
 	  glGenTextures(1, &texture);
@@ -132,9 +145,14 @@ namespace nshaders
 	  stbi_image_free(data);
 
 	  GLint myLoc = glGetUniformLocation(get_program_id(), name.c_str());
-	  glUniform1i(myLoc, 0);
-	  glActiveTexture(GL_TEXTURE0);
+
+	  //bind
+	  glActiveTexture(texture_unit_map[name]);
 	  glBindTexture(GL_TEXTURE_2D, texture);
+
+	  //set uniform
+	  glUniform1i(myLoc, texture_uniform_id[name]);
+
   }
 }
 

@@ -24,7 +24,7 @@ namespace nshaders
 		// Delete the program
 		void unload();
 
-    unsigned int get_program_id() { return mProgramId; }
+		unsigned int get_program_id() { return mProgramId; }
 
 		void set_mat4(const glm::mat4& mat4, const std::string& name);
 
@@ -36,8 +36,6 @@ namespace nshaders
 		void set_vec4(const glm::vec4& vec4, const std::string& name);
 
 		void set_tex(const std::string& filePath, const std::string& name);
-
-
 
 	};
 }

@@ -11,16 +11,11 @@ namespace nwindow
     Height = height;
     Title = title;
 
-    //TODO: make these more flexible
-    std::string model_filepath = "C:/Users/Lassiter/Documents/GitHub/opengl-rasterizer/opengl-rasterizer/resources/cyborg/cyborg.obj";
-    std::string albedo_filepath = "C:/Users/Lassiter/Documents/GitHub/opengl-rasterizer/opengl-rasterizer/resources/cyborg/cyborg_diffuse.png";
-
     mRenderCtx->init(this);
 
     mUICtx->init(this);
 
     mSceneView = std::make_unique<SceneView>();
-    mSceneView->load_starting_scene(model_filepath, albedo_filepath);
 
     mPropertyPanel = std::make_unique<Property_Panel>();
 
@@ -28,7 +23,7 @@ namespace nwindow
       [this](std::string filepath) { mSceneView->load_model(filepath); });
 
     mPropertyPanel->set_texture_load_callback(
-        [this](std::string filepath) { mSceneView->load_texture(filepath); });
+        [this](std::string filepath, std::string texture_filename) { mSceneView->load_texture(filepath, texture_filename); });
 
     return mIsRunning;
   }

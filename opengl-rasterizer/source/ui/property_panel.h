@@ -31,7 +31,7 @@ namespace nui
       mMeshLoadCallback = callback;
     }
 
-    void set_texture_load_callback(const std::function<void(const std::string&)>& callback)
+    void set_texture_load_callback(const std::function<void(const std::string&, const std::string&)>& callback)
     {
         mTexLoadCallback = callback;
     }
@@ -42,7 +42,7 @@ namespace nui
     ImGui::FileBrowser mTexFileDialog;
 
     std::function<void(const std::string&)> mMeshLoadCallback;
-    std::function<void(const std::string&)> mTexLoadCallback;
+    std::function<void(const std::string&, const std::string&)> mTexLoadCallback;
 
     std::string mCurrentFile;
     std::string mTexCurrentFile;

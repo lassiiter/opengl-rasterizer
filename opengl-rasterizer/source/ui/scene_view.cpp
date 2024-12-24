@@ -5,6 +5,7 @@
 
 namespace nui
 {
+
   void SceneView::resize(int32_t width, int32_t height)
   {
     mSize.x = width;
@@ -32,16 +33,17 @@ namespace nui
       mModel->load(filepath);
   }
 
-  void SceneView::load_texture(const std::string& filepath)
+  void SceneView::load_texture(const std::string& filepath, const std::string& texture_name)
   {
       std::cout << "Loading texture at" << filepath << std::endl;
-      mShader->set_tex(filepath, "Albedo");
+      mShader->set_tex(filepath, texture_name);
   }
 
-  void SceneView::load_starting_scene(const std::string& mode_filepath, const std::string& albedo_filepath)
+  void SceneView::load_starting_scene(const std::string& mode_filepath, const std::string& albedo_filepath, const std::string& orm_filepath)
   {
       this->load_model(mode_filepath);
-      this->load_texture(albedo_filepath);
+      this->load_texture(albedo_filepath, "albedo");
+      this->load_texture(orm_filepath, "orm");
   }
 
   void SceneView::render()

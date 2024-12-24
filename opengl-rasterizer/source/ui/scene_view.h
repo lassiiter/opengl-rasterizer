@@ -17,6 +17,8 @@ namespace nui
       mCamera(nullptr), mFrameBuffer(nullptr), mShader(nullptr),
       mLight(nullptr), mSize(800, 600)
     {
+
+
       mFrameBuffer = std::make_unique<nrender::OpenGL_FrameBuffer>();
       mFrameBuffer->create_buffers(800, 600);
       mShader = std::make_unique<nshaders::Shader>();
@@ -24,6 +26,13 @@ namespace nui
       mLight = std::make_unique<nelems::Light>();
 
       mCamera = std::make_unique<nelems::Camera>(glm::vec3(0, 0, 3), 45.0f, 1.3f, 0.1f, 100.0f);
+
+      //TODO im sure these make more sense somewhere else
+      std::string model_filepath = "C:/Users/Lassiter/Documents/GitHub/opengl-rasterizer/opengl-rasterizer/resources/damaged_helmet/DamagedHelmet.fbx";
+      std::string albedo_filepath = "C:/Users/Lassiter/Documents/GitHub/opengl-rasterizer/opengl-rasterizer/resources/damaged_helmet/Default_albedo.jpg";
+      std::string orm_filepath = "C:/Users/Lassiter/Documents/GitHub/opengl-rasterizer/opengl-rasterizer/resources/damaged_helmet/Default_ORM.png";
+
+      this->load_starting_scene(model_filepath, albedo_filepath, orm_filepath);
 
     }
 
@@ -40,8 +49,8 @@ namespace nui
     void render();
 
     void load_model(const std::string& filepath);
-    void load_texture(const std::string& filepath);
-    void load_starting_scene(const std::string& model_filepath, const std::string& albedo_filepath);
+    void load_texture(const std::string& filepath, const std::string& texture_name);
+    void load_starting_scene(const std::string& model_filepath, const std::string& albedo_filepath, const std::string& orm_filepath);
 
     void set_model(std::shared_ptr<nelems::Model> mesh)
     {
