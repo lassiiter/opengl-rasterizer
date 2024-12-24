@@ -59,7 +59,7 @@ namespace nui
         auto file_path = mTexFileDialog.GetSelected().string();
         mTexCurrentFile = file_path.substr(file_path.find_last_of("/\\") + 1);
 
-        mTexLoadCallback(file_path);
+        mTexLoadCallback(file_path, "albedo");
 
         mTexFileDialog.ClearSelected();
     }

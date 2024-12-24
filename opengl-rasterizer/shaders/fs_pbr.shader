@@ -10,8 +10,10 @@ in vec2 TexCoords;
 uniform float metallic;
 uniform float roughness;
 uniform float ao;
-uniform sampler2D texture_diffuse;
 
+uniform sampler2D albedo;
+uniform sampler2D orm;
+//uniform sampler2D normal;
 
 // lights
 uniform vec3 lightPosition;
@@ -65,7 +67,13 @@ void main()
 {
   vec3 N = normalize(Normal);
   vec3 V = normalize(camPos - WorldPos);
-  vec3 albedo = (texture(texture_diffuse, TexCoords)).rgb;
+
+  vec3 albedo = (texture(albedo, TexCoords)).rgb;
+  //vec3 orm = (texture(texture_albedo, TexCoords)).rgb;
+
+  //ao = orm.r;
+  //metallic = orm.g;
+  //roughness = orm.b;
 
   // calculate reflectance at normal incidence; if dia-electric (like plastic) use F0 
   // of 0.04 and if it's a metal, use the albedo color as F0 (metallic workflow)    
@@ -121,6 +129,5 @@ void main()
   // gamma correct
   color = pow(color, vec3(1.0 / 2.2));
 
-  //FragColor = texture(texture_diffuse, TexCoords);
   FragColor = vec4(color, 1.0);
 }
