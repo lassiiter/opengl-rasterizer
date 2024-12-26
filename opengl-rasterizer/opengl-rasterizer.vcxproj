@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\elems\ibl.cpp" />
     <ClCompile Include="source\elems\model.cpp" />
     <ClCompile Include="source\elems\model.h" />
     <ClCompile Include="source\ui\scene_view.cpp" />
@@ -184,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\LearnOpenGL\includes\stb_image.h" />
     <ClInclude Include="source\3rdparty\plugins\imgui\ImFileBrowser.h" />
+    <ClInclude Include="source\elems\ibl.h" />
     <ClInclude Include="source\utils\imgui_widgets.h" />
     <ClInclude Include="source\ui\scene_view.h" />
     <ClInclude Include="source\ui\property_panel.h" />
@@ -210,9 +212,13 @@
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="libs\assimp\LICENSE" />
-    <None Include="shaders\fs.shader" />
-    <None Include="shaders\fs_pbr.shader" />
-    <None Include="shaders\vs.shader" />
+    <None Include="shaders\background.fs" />
+    <None Include="shaders\background.vs" />
+    <None Include="shaders\cubemap.fs" />
+    <None Include="shaders\cubemap.vs" />
+    <None Include="shaders\irradiance_convolution.fs" />
+    <None Include="shaders\pbr.fs" />
+    <None Include="shaders\pbr.vs" />
     <None Include="source\3rdparty\plugins\imgui\LICENSE" />
   </ItemGroup>
   <ItemGroup>

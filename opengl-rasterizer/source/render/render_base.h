@@ -9,8 +9,7 @@ namespace nrender
   class VertexIndexBuffer
   {
   public:
-    VertexIndexBuffer() : mVBO{ 0 }, mVAO{ 0 }, mIBO{ 0 }
-    {}
+    VertexIndexBuffer() : mVBO{ 0 }, mVAO{ 0 }, mIBO{ 0 }{}
 
     virtual void create_buffers(const std::vector<nelems::VertexHolder>& vertices, const std::vector<unsigned int>& indices) = 0;
 
@@ -26,6 +25,28 @@ namespace nrender
     GLuint mVBO;
     GLuint mVAO;
     GLuint mIBO;
+  };
+
+  class VertexArrayBuffer
+  {
+  public:
+      VertexArrayBuffer() : mVBO{ 0 }, mVAO{ 0 } {}
+
+      virtual void create_buffers(const std::vector<float>& vertices) = 0;
+
+      virtual void delete_buffers() = 0;
+
+      virtual void bind() = 0;
+
+      virtual void unbind() = 0;
+
+      virtual void draw(int vertex_count) = 0;
+
+      virtual bool is_intialized() = 0;
+
+  protected:
+      GLuint mVBO;
+      GLuint mVAO;
   };
 
   class FrameBuffer

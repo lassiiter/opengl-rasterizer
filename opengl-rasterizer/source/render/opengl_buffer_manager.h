@@ -24,6 +24,25 @@ namespace nrender
 
   };
 
+  class OpenGL_VertexArrayBuffer : public VertexArrayBuffer
+  {
+  public:
+      OpenGL_VertexArrayBuffer() : VertexArrayBuffer(){}
+
+      void create_buffers(const std::vector<float>& vertices) override;
+
+      void delete_buffers() override;
+
+      void bind() override;
+
+      void unbind() override;
+
+      void draw(int vertex_count) override;
+
+      bool is_intialized() override;
+
+  };
+
   class OpenGL_FrameBuffer : public FrameBuffer
   {
   public:
