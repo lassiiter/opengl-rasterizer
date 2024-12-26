@@ -20,12 +20,10 @@ namespace nelems
 
     ~Light() {}
 
-    void update(nshaders::Shader* shader) override
+    void update(nshaders::Shader* shader)
     {
-
       shader->set_vec3(mPosition, "lightPosition");
       shader->set_vec3(mColor * mStrength, "lightColor");
-      
     }
 
     glm::vec3 mPosition;

@@ -19,7 +19,7 @@ namespace nelems
 
         void load(std::string const& filepath);
 
-        void update(nshaders::Shader* shader) override
+        void update(nshaders::Shader* shader)
         {
             // pbr color
             shader->set_vec3(mColor, "albedo");

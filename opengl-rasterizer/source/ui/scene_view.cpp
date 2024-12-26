@@ -39,11 +39,19 @@ namespace nui
       mShader->set_tex(filepath, texture_name);
   }
 
-  void SceneView::load_starting_scene(const std::string& mode_filepath, const std::string& albedo_filepath, const std::string& orm_filepath)
+  void SceneView::load_starting_scene()
   {
-      this->load_model(mode_filepath);
+      //TODO im sure these make more sense somewhere else
+      std::string model_filepath = "./resources/damaged_helmet/DamagedHelmet.fbx";
+      std::string albedo_filepath = "./resources/damaged_helmet/Default_albedo.jpg";
+      std::string orm_filepath = "./resources/damaged_helmet/Default_ORM.png";
+      std::string ibl_skybox_filepath = "./resources/ibl/canart_wharf/canary_wharf_2k.hdr";
+      
+      this->load_model(model_filepath);
       this->load_texture(albedo_filepath, "albedo");
       this->load_texture(orm_filepath, "orm");
+
+      mSceneEnvIBL->load_background_texture(ibl_skybox_filepath);
   }
 
   void SceneView::render()
@@ -61,6 +69,8 @@ namespace nui
        mModel->render();
     }
 
+    mSceneEnvIBL->render();
+
     mFrameBuffer->unbind();
 
     ImGui::Begin("Scene");
@@ -69,7 +79,9 @@ namespace nui
     mSize = { viewportPanelSize.x, viewportPanelSize.y };
 
     mCamera->set_aspect(mSize.x / mSize.y);
-    mCamera->update(mShader.get());
+    
+    mCamera->update(mShader.get(), mSceneEnvIBL->get_shader());
+    //mCamera->update(mShader.get());
 
     // add rendered texture to ImGUI scene window
     uint64_t textureID = mFrameBuffer->get_texture();
