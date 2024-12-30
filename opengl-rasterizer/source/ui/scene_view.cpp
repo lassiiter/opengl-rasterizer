@@ -45,7 +45,7 @@ namespace nui
       std::string model_filepath = "./resources/damaged_helmet/DamagedHelmet.fbx";
       std::string albedo_filepath = "./resources/damaged_helmet/Default_albedo.jpg";
       std::string orm_filepath = "./resources/damaged_helmet/Default_ORM.png";
-      std::string ibl_skybox_filepath = "./resources/ibl/canart_wharf/canary_wharf_2k.hdr";
+      std::string ibl_skybox_filepath = "./resources/ibl/warm_restaurant/warm_restaurant_night_2k.hdr";
       
       this->load_model(model_filepath);
       this->load_texture(albedo_filepath, "albedo");
