@@ -13,7 +13,7 @@ uniform float u_ao;
 
 layout(location = 3) uniform sampler2D albedoTex;
 layout(location = 4) uniform sampler2D ormTex;
-layout(location = 5) uniform samplerCube irradianceMap;
+layout(location = 7) uniform samplerCube irradianceTex;
 //uniform sampler2D normal;
 
 // lights
@@ -69,6 +69,7 @@ void main()
   vec3 N = normalize(Normal);
   vec3 V = normalize(camPos - WorldPos);
 
+  vec3 irradiance = texture(irradianceTex, N).rgb;
   vec3 albedo = pow(texture(albedoTex, TexCoords).rgb, vec3(2.2));
   vec3 orm    = (texture(ormTex, TexCoords)).rgb;
 
@@ -129,5 +130,5 @@ void main()
   // gamma correct
   color = pow(color, vec3(1.0 / 2.2));
 
-  FragColor = vec4(albedo, 1.0);
+  FragColor = vec4(irradiance, 1.0);
 }

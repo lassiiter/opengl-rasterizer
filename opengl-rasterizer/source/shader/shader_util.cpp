@@ -114,11 +114,13 @@ namespace nshaders
 	  texture_unit_map["albedo"] = GL_TEXTURE3;
 	  texture_unit_map["orm"] = GL_TEXTURE4;
 	  texture_unit_map["normal"] = GL_TEXTURE5;
+	  texture_unit_map["irradiance"] = GL_TEXTURE7;
+
 
 	  std::map<std::string, int> texture_uniform_id;
 	  texture_uniform_id["albedo"] = 3;
 	  texture_uniform_id["orm"] = 4;
-	  texture_uniform_id["normal"] = 5;
+	  texture_uniform_id["irradiance"] = 7;
 
 	  std::cout << "texture_unit_map: " << texture_unit_map[name] << std::endl;
 	  std::cout << "texture_uniform_id: " << texture_uniform_id[name] << std::endl;
@@ -142,7 +144,8 @@ namespace nshaders
 	  if (data)
 	  {
 		  std::cout << "Succcessfully to load texture" << std::endl;
-		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, data);
 		  glGenerateMipmap(GL_TEXTURE_2D);
 	  }
 	  else
