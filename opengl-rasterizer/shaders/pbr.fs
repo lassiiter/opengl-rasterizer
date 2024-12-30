@@ -13,6 +13,7 @@ uniform float u_ao;
 
 layout(location = 3) uniform sampler2D albedoTex;
 layout(location = 4) uniform sampler2D ormTex;
+layout(location = 5) uniform samplerCube irradianceMap;
 //uniform sampler2D normal;
 
 // lights
