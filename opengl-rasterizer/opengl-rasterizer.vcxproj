@@ -172,10 +172,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\mesh_import\import_obj.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -203,8 +199,6 @@
     <ClInclude Include="source\elems\camera.h" />
     <ClInclude Include="source\elems\mesh.h" />
     <ClInclude Include="source\main.h" />
-    <ClInclude Include="source\mesh_import\import_base.h" />
-    <ClInclude Include="source\mesh_import\import_obj.h" />
     <ClInclude Include="source\pch.h" />
     <ClInclude Include="source\shader\shader_util.h" />
     <ClInclude Include="source\window\window.h" />
