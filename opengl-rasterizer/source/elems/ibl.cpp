@@ -144,6 +144,7 @@ namespace nelems
             this->render_on_cube();
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        
     }
 
     void IBL::render_on_cube()

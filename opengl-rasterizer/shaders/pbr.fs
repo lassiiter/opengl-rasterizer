@@ -13,7 +13,7 @@ uniform float u_ao;
 
 layout(location = 3) uniform sampler2D albedoTex;
 layout(location = 4) uniform sampler2D ormTex;
-layout(location = 7) uniform samplerCube irradianceTex;
+layout(location = 7) uniform sampler2D irradianceTex;
 //uniform sampler2D normal;
 
 // lights
@@ -69,7 +69,12 @@ void main()
   vec3 N = normalize(Normal);
   vec3 V = normalize(camPos - WorldPos);
 
-  vec3 irradiance = texture(irradianceTex, N).rgb;
+  // Convert to spherical coordinates too lazy to create cubemaps
+  vec3 R = reflect(V, N);
+  float phi = atan(R.z, R.x) / (2.0 * 3.14159265359) + 0.5; // Longitude
+  float theta = acos(R.y) / 3.14159265359; // Latitude
+
+  vec3 irradiance = texture(irradianceTex, vec2(phi, theta)).rgb;
   vec3 albedo = pow(texture(albedoTex, TexCoords).rgb, vec3(2.2));
   vec3 orm    = (texture(ormTex, TexCoords)).rgb;
 
@@ -120,7 +125,7 @@ void main()
 
   // ambient lighting (note that the next IBL tutorial will replace 
   // this ambient lighting with environment lighting).
-  vec3 ambient = vec3(0.03) * albedo * ao;
+  vec3 ambient = irradiance* ao;
 
   vec3 color = ambient + Lo;
 
@@ -130,5 +135,5 @@ void main()
   // gamma correct
   color = pow(color, vec3(1.0 / 2.2));
 
-  FragColor = vec4(irradiance, 1.0);
+  FragColor = vec4(albedo, 1.0);
 }

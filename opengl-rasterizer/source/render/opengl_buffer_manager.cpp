@@ -64,6 +64,7 @@ namespace nrender
 
   void OpenGL_VertexArrayBuffer::create_buffers(const std::vector<float>& vertices)
   {
+      std::cout << "vertices.size()" << vertices.size() << std::endl;
       glGenVertexArrays(1, &mVAO);
 
       glGenBuffers(1, &mVBO);
