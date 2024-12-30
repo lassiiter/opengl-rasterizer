@@ -24,7 +24,7 @@ namespace nui
       mShader = std::make_unique<nshaders::Shader>();
       mShader->load("shaders/pbr.vs", "shaders/pbr.fs");
       mLight = std::make_unique<nelems::Light>();
-      mSceneEnvIBL = std::make_unique<nelems::IBL>();
+      //mSceneEnvIBL = std::make_unique<nelems::IBL>();
       mCamera = std::make_unique<nelems::Camera>(glm::vec3(0, 0, 3), 45.0f, 1.3f, 0.1f, 100.0f);
 
       this->load_starting_scene();

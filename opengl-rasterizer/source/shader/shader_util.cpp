@@ -3,7 +3,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-#include <map>
 
 
 namespace nshaders
@@ -105,22 +104,45 @@ namespace nshaders
     glProgramUniform4fv(get_program_id(), myLoc, 1, glm::value_ptr(vec4));
   }
 
+  void Shader::set_tex_hdr(const std::string& filePath, const std::string& name)
+  {
+	  unsigned int texture;
+	  int width, height, nrChannels;
+
+	  stbi_set_flip_vertically_on_load(true);
+
+	  glEnable(GL_TEXTURE);
+	  glGenTextures(1, &texture);
+	  glBindTexture(GL_TEXTURE_2D, texture);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	  float* data = stbi_loadf(filePath.c_str(), &width, &height, &nrChannels, 0);
+	  if (data)
+	  {
+		  std::cout << "Succcessfully to load texture" << std::endl;
+		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, data);
+		  glGenerateMipmap(GL_TEXTURE_2D);
+	  }
+	  else
+	  {
+		  std::cout << "Failed to load texture" << std::endl;
+	  }
+	  stbi_image_free(data);
+
+	  glActiveTexture(texture_unit_map[name]);
+	  glBindTexture(GL_TEXTURE_2D, texture);
+	  this->set_i1(texture_uniform_id[name], name);
+
+
+  }
+
   void Shader::set_tex(const std::string& filePath, const std::string& name)
   {
 	  std::cout << "classtype: " << typeid(this).hash_code() << std::endl;
 	  std::cout << "name: " << name << std::endl;
-
-	  std::map<std::string, int> texture_unit_map;
-	  texture_unit_map["albedo"] = GL_TEXTURE3;
-	  texture_unit_map["orm"] = GL_TEXTURE4;
-	  texture_unit_map["normal"] = GL_TEXTURE5;
-	  texture_unit_map["irradiance"] = GL_TEXTURE7;
-
-
-	  std::map<std::string, int> texture_uniform_id;
-	  texture_uniform_id["albedo"] = 3;
-	  texture_uniform_id["orm"] = 4;
-	  texture_uniform_id["irradiance"] = 7;
 
 	  std::cout << "texture_unit_map: " << texture_unit_map[name] << std::endl;
 	  std::cout << "texture_uniform_id: " << texture_uniform_id[name] << std::endl;
@@ -144,8 +166,7 @@ namespace nshaders
 	  if (data)
 	  {
 		  std::cout << "Succcessfully to load texture" << std::endl;
-		  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, data);
+		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		  glGenerateMipmap(GL_TEXTURE_2D);
 	  }
 	  else
@@ -154,15 +175,14 @@ namespace nshaders
 	  }
 	  stbi_image_free(data);
 
-
-	  
 	  glActiveTexture(texture_unit_map[name]);
-
-	  //set uniform
+	  glBindTexture(GL_TEXTURE_2D, texture);
 	  this->set_i1(texture_uniform_id[name], name);
 
-	  //bind
-	  glBindTexture(GL_TEXTURE_2D, texture);
+
+
+
+	  
   }
 }
 
