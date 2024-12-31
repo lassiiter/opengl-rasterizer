@@ -144,10 +144,13 @@ void main()
   vec3 diffuse      = irradiance * albedo;
   vec3 ambient = (kD * diffuse + (specular*roughness)) * ao;
 
-  vec3 color = ambient + Lo + (emissive*20.0);
+  vec3 color = ambient + Lo ;
 
   // HDR tonemapping
   color = color / (color + vec3(1.0));
+
+  //very hacky emissive but looks better here
+  color += (emissive*3.0);
 
   // gamma correct
   color = pow(color, vec3(1.0 / 2.2));
