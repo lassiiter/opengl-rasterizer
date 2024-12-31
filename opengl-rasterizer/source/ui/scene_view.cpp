@@ -42,12 +42,12 @@ namespace nui
   void SceneView::load_starting_scene()
   {
       //TODO im sure these make more sense somewhere else
-      std::string model_filepath = "./resources/damaged_helmet/DamagedHelmet.fbx";
-      std::string albedo_filepath = "./resources/damaged_helmet/Default_albedo.jpg";
-      std::string orm_filepath = "./resources/damaged_helmet/Default_ORM.png";
-      std::string emissive_filepath = "./resources/damaged_helmet/Default_emissive.jpg";
+      std::string model_filepath = "resources/damaged_helmet/DamagedHelmet.fbx";
+      std::string albedo_filepath = "resources/damaged_helmet/Default_albedo.jpg";
+      std::string orm_filepath = "resources/damaged_helmet/Default_ORM.png";
+      std::string emissive_filepath = "resources/damaged_helmet/Default_emissive.jpg";
 
-      std::string ibl_skybox_filepath = "./resources/ibl/warm_restaurant/warm_restaurant_night_2k.hdr";
+      std::string ibl_skybox_filepath = "resources/ibl/warm_restaurant/warm_restaurant_night_2k.hdr";
       std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_iem.hdr";
       std::string ibl_radiance_filepath = "resources/ibl/warm_restaurant/output_pmrem.hdr";
       

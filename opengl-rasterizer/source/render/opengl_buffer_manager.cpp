@@ -70,9 +70,8 @@ namespace nrender
       glGenBuffers(1, &mVBO);
 
       glBindVertexArray(mVAO);
-
       glBindBuffer(GL_ARRAY_BUFFER, mVBO);
-      glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(nelems::VertexHolder), vertices.data(), GL_STATIC_DRAW);
+      glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(unsigned int), vertices.data(), GL_STATIC_DRAW);
 
       glEnableVertexAttribArray(0);
       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)0);
