@@ -131,12 +131,7 @@ namespace nshaders
 		  std::cout << "Failed to load texture" << std::endl;
 	  }
 	  stbi_image_free(data);
-
-	  glActiveTexture(texture_unit_map[name]);
-	  glBindTexture(GL_TEXTURE_2D, texture);
-	  this->set_i1(texture_uniform_id[name], name);
-
-
+	  glBindTextureUnit(texture_uniform_id[name], texture);
   }
 
   void Shader::set_tex(const std::string& filePath, const std::string& name)
@@ -174,15 +169,7 @@ namespace nshaders
 		  std::cout << "Failed to load texture" << std::endl;
 	  }
 	  stbi_image_free(data);
-
-	  glActiveTexture(texture_unit_map[name]);
-	  glBindTexture(GL_TEXTURE_2D, texture);
-	  this->set_i1(texture_uniform_id[name], name);
-
-
-
-
-	  
+	  glBindTextureUnit(texture_uniform_id[name], texture);
   }
 }
 

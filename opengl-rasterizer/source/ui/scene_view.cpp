@@ -45,17 +45,22 @@ namespace nui
       std::string model_filepath = "./resources/damaged_helmet/DamagedHelmet.fbx";
       std::string albedo_filepath = "./resources/damaged_helmet/Default_albedo.jpg";
       std::string orm_filepath = "./resources/damaged_helmet/Default_ORM.png";
+      std::string emissive_filepath = "./resources/damaged_helmet/Default_emissive.jpg";
+
       std::string ibl_skybox_filepath = "./resources/ibl/warm_restaurant/warm_restaurant_night_2k.hdr";
-      std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_irradiance.hdr";
+      std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_iem.hdr";
+      std::string ibl_radiance_filepath = "resources/ibl/warm_restaurant/output_pmrem.hdr";
       
       this->load_model(model_filepath);
       
       mShader->use();
       mShader->set_tex(albedo_filepath, "albedoTex");
       mShader->set_tex(orm_filepath, "ormTex");
+      mShader->set_tex(emissive_filepath, "emissiveTex");
       mShader->set_tex_hdr(ibl_irradiance_filepath, "irradianceTex");
+      mShader->set_tex_hdr(ibl_radiance_filepath, "radianceTex");
 
-      //mSceneEnvIBL->load_background_texture(ibl_skybox_filepath);
+      mSceneEnvIBL->load_background_texture(ibl_skybox_filepath);
   }
 
   void SceneView::render()
@@ -73,7 +78,7 @@ namespace nui
        mModel->render();
     }
 
-    //mSceneEnvIBL->render();
+    mSceneEnvIBL->render();
 
     mFrameBuffer->unbind();
 
@@ -84,8 +89,8 @@ namespace nui
 
     mCamera->set_aspect(mSize.x / mSize.y);
     
-    //mCamera->update(mShader.get(), mSceneEnvIBL->get_shader());
-    mCamera->update(mShader.get());
+    mCamera->update(mShader.get(), mSceneEnvIBL->get_shader());
+    //mCamera->update(mShader.get());
 
     // add rendered texture to ImGUI scene window
     uint64_t textureID = mFrameBuffer->get_texture();
