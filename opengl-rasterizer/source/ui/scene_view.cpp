@@ -47,9 +47,9 @@ namespace nui
       std::string orm_filepath = "resources/damaged_helmet/Default_ORM.png";
       std::string emissive_filepath = "resources/damaged_helmet/Default_emissive.jpg";
 
-      std::string ibl_skybox_filepath = "resources/ibl/warm_restaurant/warm_restaurant_night_2k.hdr";
-      std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_iem.hdr";
-      std::string ibl_radiance_filepath = "resources/ibl/warm_restaurant/output_pmrem.hdr";
+      std::string ibl_skybox_filepath = "resources/ibl/canary_wharf/canary_wharf_2k.hdr";
+      std::string ibl_irradiance_filepath = "resources/ibl/canary_wharf/output_iem.hdr";
+      std::string ibl_radiance_filepath = "resources/ibl/canary_wharf/output_pmrem.hdr";
       
       this->load_model(model_filepath);
       
