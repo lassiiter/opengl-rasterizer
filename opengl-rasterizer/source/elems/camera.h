@@ -17,16 +17,32 @@ namespace nelems
 		{
 			mPosition = position;
 			mAspect = aspect;
-      mNear = near;
-      mFar = far;
-      mFOV = fov;
+			mNear = near;
+			mFar = far;
+			mFOV = fov;
 
 			set_aspect(mAspect);
 
 			update_view_matrix();
 		}
 
-		void update(nshaders::Shader* shader) override
+		void update(nshaders::Shader* shader, nshaders::Shader* IBLShader)
+		{
+			shader->use();
+
+			glm::mat4 model{ 1.0f };
+			shader->set_mat4(model, "model");
+			shader->set_mat4(mViewMatrix, "view");
+			shader->set_mat4(get_projection(), "projection");
+			shader->set_vec3(mPosition, "camPos");
+
+			IBLShader->use();
+
+			IBLShader->set_mat4(mViewMatrix, "view");
+			IBLShader->set_mat4(get_projection(), "projection");
+		}
+
+		void update(nshaders::Shader* shader)
 		{
 			glm::mat4 model{ 1.0f };
 			shader->set_mat4(model, "model");

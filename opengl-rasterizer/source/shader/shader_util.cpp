@@ -4,6 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+
 namespace nshaders
 {
 	unsigned int Shader::get_compiled_shader(unsigned int shader_type, const std::string& shader_source)
@@ -17,7 +18,7 @@ namespace nshaders
 		GLint result;
 		glGetShaderiv(shader_id, GL_COMPILE_STATUS, &result);
 
-		if (result == GL_FALSE)
+		if (result == GL_FALSE || !result)
 		{
 			int length;
 			glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &length);
@@ -103,10 +104,48 @@ namespace nshaders
     glProgramUniform4fv(get_program_id(), myLoc, 1, glm::value_ptr(vec4));
   }
 
-  void Shader::set_tex(const std::string& filePath, const std::string& name)
+  void Shader::set_tex_hdr(const std::string& filePath, const std::string& name)
   {
 	  unsigned int texture;
 	  int width, height, nrChannels;
+
+	  stbi_set_flip_vertically_on_load(true);
+
+	  glEnable(GL_TEXTURE);
+	  glGenTextures(1, &texture);
+	  glBindTexture(GL_TEXTURE_2D, texture);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	  float* data = stbi_loadf(filePath.c_str(), &width, &height, &nrChannels, 0);
+	  if (data)
+	  {
+		  std::cout << "Succcessfully to load texture" << std::endl;
+		  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, data);
+		  glGenerateMipmap(GL_TEXTURE_2D);
+	  }
+	  else
+	  {
+		  std::cout << "Failed to load texture" << std::endl;
+	  }
+	  stbi_image_free(data);
+	  glBindTextureUnit(texture_uniform_id[name], texture);
+  }
+
+  void Shader::set_tex(const std::string& filePath, const std::string& name)
+  {
+	  std::cout << "classtype: " << typeid(this).hash_code() << std::endl;
+	  std::cout << "name: " << name << std::endl;
+
+	  std::cout << "texture_unit_map: " << texture_unit_map[name] << std::endl;
+	  std::cout << "texture_uniform_id: " << texture_uniform_id[name] << std::endl;
+
+	  unsigned int texture;
+	  std::cout << "texture id: " << &texture << std::endl;
+	  int width, height, nrChannels;
+
 	  stbi_set_flip_vertically_on_load(true);
 
 	  glGenTextures(1, &texture);
@@ -130,11 +169,7 @@ namespace nshaders
 		  std::cout << "Failed to load texture" << std::endl;
 	  }
 	  stbi_image_free(data);
-
-	  GLint myLoc = glGetUniformLocation(get_program_id(), name.c_str());
-	  glUniform1i(myLoc, 0);
-	  glActiveTexture(GL_TEXTURE0);
-	  glBindTexture(GL_TEXTURE_2D, texture);
+	  glBindTextureUnit(texture_uniform_id[name], texture);
   }
 }
 

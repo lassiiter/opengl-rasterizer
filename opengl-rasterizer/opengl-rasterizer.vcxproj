@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\elems\ibl.cpp" />
     <ClCompile Include="source\elems\model.cpp" />
     <ClCompile Include="source\elems\model.h" />
     <ClCompile Include="source\ui\scene_view.cpp" />
@@ -171,10 +172,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="source\mesh_import\import_obj.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -184,6 +181,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\LearnOpenGL\includes\stb_image.h" />
     <ClInclude Include="source\3rdparty\plugins\imgui\ImFileBrowser.h" />
+    <ClInclude Include="source\elems\ibl.h" />
     <ClInclude Include="source\utils\imgui_widgets.h" />
     <ClInclude Include="source\ui\scene_view.h" />
     <ClInclude Include="source\ui\property_panel.h" />
@@ -201,8 +199,6 @@
     <ClInclude Include="source\elems\camera.h" />
     <ClInclude Include="source\elems\mesh.h" />
     <ClInclude Include="source\main.h" />
-    <ClInclude Include="source\mesh_import\import_base.h" />
-    <ClInclude Include="source\mesh_import\import_obj.h" />
     <ClInclude Include="source\pch.h" />
     <ClInclude Include="source\shader\shader_util.h" />
     <ClInclude Include="source\window\window.h" />
@@ -210,9 +206,13 @@
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="libs\assimp\LICENSE" />
-    <None Include="shaders\fs.shader" />
-    <None Include="shaders\fs_pbr.shader" />
-    <None Include="shaders\vs.shader" />
+    <None Include="shaders\background.fs" />
+    <None Include="shaders\background.vs" />
+    <None Include="shaders\cubemap.fs" />
+    <None Include="shaders\cubemap.vs" />
+    <None Include="shaders\irradiance_convolution.fs" />
+    <None Include="shaders\pbr.fs" />
+    <None Include="shaders\pbr.vs" />
     <None Include="source\3rdparty\plugins\imgui\LICENSE" />
   </ItemGroup>
   <ItemGroup>

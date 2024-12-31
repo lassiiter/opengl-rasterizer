@@ -62,6 +62,66 @@ namespace nrender
     unbind();
   }
 
+  void OpenGL_VertexArrayBuffer::create_buffers(const std::vector<float>& vertices)
+  {
+      std::cout << "vertices.size()" << vertices.size() << std::endl;
+      glGenVertexArrays(1, &mVAO);
+
+      glGenBuffers(1, &mVBO);
+
+      glBindVertexArray(mVAO);
+
+      glBindBuffer(GL_ARRAY_BUFFER, mVBO);
+      glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(nelems::VertexHolder), vertices.data(), GL_STATIC_DRAW);
+
+      glEnableVertexAttribArray(0);
+      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)0);
+
+      glEnableVertexAttribArray(1);
+      glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)offsetof(nelems::VertexHolder, mNormal));
+
+      glEnableVertexAttribArray(2);
+      glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)offsetof(nelems::VertexHolder, mTexCoords));
+
+      glBindVertexArray(0);
+
+  }
+
+  void OpenGL_VertexArrayBuffer::delete_buffers()
+  {
+      glDisableVertexAttribArray(0);
+      glDisableVertexAttribArray(1);
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+      glDeleteBuffers(1, &mVBO);
+      glDeleteVertexArrays(1, &mVAO);
+  }
+
+  void OpenGL_VertexArrayBuffer::bind()
+  {
+      glBindVertexArray(mVAO);
+  }
+
+  void OpenGL_VertexArrayBuffer::unbind()
+  {
+      glBindVertexArray(0);
+  }
+
+  void OpenGL_VertexArrayBuffer::draw(int vertex_count)
+  {
+      bind();
+
+      // the vertices as line loop
+      glDrawArrays(GL_TRIANGLES, 0, vertex_count);
+
+      unbind();
+  }
+
+  bool OpenGL_VertexArrayBuffer::is_intialized()
+  {
+      return glIsBuffer(mVBO);
+  }
+
 
   void OpenGL_FrameBuffer::create_buffers(int32_t width, int32_t height)
   {

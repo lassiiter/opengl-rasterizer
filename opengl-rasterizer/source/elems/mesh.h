@@ -37,8 +37,6 @@ namespace nelems
 
     void unbind();
 
-    void update(nshaders::Shader* shader) override{  }
-
   private:
     
     // Buffers manager
