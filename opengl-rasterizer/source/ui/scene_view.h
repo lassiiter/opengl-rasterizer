@@ -52,6 +52,8 @@ namespace nui
     }
 
     std::shared_ptr<nelems::Model> get_model() { return mModel; }
+    std::shared_ptr<nshaders::Shader> get_shader() { return mShader; }
+
     
     void on_mouse_move(double x, double y, nelems::EInputButton button);
 
@@ -65,9 +67,9 @@ namespace nui
   private:
     std::unique_ptr<nelems::Camera> mCamera;
     std::unique_ptr<nrender::OpenGL_FrameBuffer> mFrameBuffer;
-    std::unique_ptr<nshaders::Shader> mShader;
     std::unique_ptr<nelems::IBL> mSceneEnvIBL;
     std::unique_ptr<nelems::Light> mLight;
+    std::shared_ptr<nshaders::Shader> mShader;
     std::shared_ptr<nelems::Model> mModel;
     glm::vec2 mSize;
   };

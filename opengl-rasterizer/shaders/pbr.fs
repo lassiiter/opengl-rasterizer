@@ -9,6 +9,8 @@ in vec2 TexCoords;
 uniform vec3 u_tint;
 uniform float u_metallic;
 uniform float u_roughness;
+uniform float u_enable_IBL_specular;
+uniform float u_enable_IBL_diffuse;
 
 layout(binding  = 3) uniform sampler2D albedoTex;
 layout(binding  = 4) uniform sampler2D ormTex;
@@ -140,10 +142,14 @@ void main()
    vec3 kD = vec3(1.0) - kS;
    kD *= 1.0 - metallic;
 
+  //in case we set this to false, set lighting to 1.0
+  irradiance = mix(vec3(1.0), irradiance, u_enable_IBL_diffuse);
+  //turn off specular
+  specular = specular * u_enable_IBL_specular;
+
   // this ambient lighting with environment lighting).
   vec3 diffuse      = irradiance * albedo;
   vec3 ambient = (kD * diffuse + (specular*roughness)) * ao;
-
   vec3 color = ambient + Lo ;
 
   // HDR tonemapping

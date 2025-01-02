@@ -5,10 +5,10 @@ namespace nui
 {
   void Property_Panel::render(nui::SceneView* scene_view)
   {
-    auto model = scene_view->get_model();
+    std::shared_ptr<nelems::Model> model = scene_view->get_model();
 
     ImGui::Begin("Properties");
-    if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("Mesh"))
     {
       if (ImGui::Button("Open..."))
       {
@@ -31,13 +31,20 @@ namespace nui
       ImGui::Text(mTexCurrentFile.c_str());
     }
 
-    if (ImGui::CollapsingHeader("Light"))
+    if (ImGui::CollapsingHeader("Lighting"))
     {
 
       ImGui::Separator();
-      ImGui::Text("Position");
+      ImGui::Text("Direct Light Position");
       ImGui::Separator();
       nimgui::draw_vec3_widget("Position", scene_view->get_light()->mPosition, 80.0f);
+
+      if (ImGui::Checkbox("Enable IBL Diffuse", &mDiffuseIBLEnabled)) {
+          model->mDiffuseIBLEnabled = mDiffuseIBLEnabled ? 1.0 : 0.0;
+      }
+      if (ImGui::Checkbox("Enable IBL Specular", &mSpecularIBLEnabled)) {
+          model->mSpecularIBLEnabled = mSpecularIBLEnabled ? 1.0 : 0.0;
+      }
     }
 
     ImGui::End();
