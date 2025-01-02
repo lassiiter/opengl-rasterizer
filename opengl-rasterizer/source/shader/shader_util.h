@@ -23,13 +23,14 @@ namespace nshaders
 			texture_uniform_id["albedoTex"] = 3;
 			texture_uniform_id["ormTex"] = 4;
 			texture_uniform_id["emissiveTex"] = 5;
+			texture_uniform_id["skyboxTex"] = 6;
 			texture_uniform_id["irradianceTex"] = 7;
 			texture_uniform_id["radianceTex"] = 8;
-
 
 			texture_unit_map["albedoTex"] = GL_TEXTURE3;
 			texture_unit_map["ormTex"] = GL_TEXTURE4;
 			texture_unit_map["emissiveTex"] = GL_TEXTURE5;
+			texture_unit_map["skyboxTex"] = GL_TEXTURE6;
 			texture_unit_map["irradianceTex"] = GL_TEXTURE7;
 			texture_unit_map["radianceTex"] = GL_TEXTURE8;
 		}

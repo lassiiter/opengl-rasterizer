@@ -42,14 +42,15 @@ namespace nui
   void SceneView::load_starting_scene()
   {
       //TODO im sure these make more sense somewhere else
+      //AKA lots of hardcoded resource loading for testing
       std::string model_filepath = "resources/damaged_helmet/DamagedHelmet.fbx";
       std::string albedo_filepath = "resources/damaged_helmet/Default_albedo.jpg";
       std::string orm_filepath = "resources/damaged_helmet/Default_ORM.png";
       std::string emissive_filepath = "resources/damaged_helmet/Default_emissive.jpg";
 
-      std::string ibl_skybox_filepath = "resources/ibl/canary_wharf/canary_wharf_2k.hdr";
-      std::string ibl_irradiance_filepath = "resources/ibl/canary_wharf/output_iem.hdr";
-      std::string ibl_radiance_filepath = "resources/ibl/canary_wharf/output_pmrem.hdr";
+      std::string ibl_skybox_filepath = "resources/ibl/warm_restaurant/output_skybox.hdr";
+      std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_iem.hdr";
+      std::string ibl_radiance_filepath = "resources/ibl/warm_restaurant/output_pmrem.hdr";
       
       this->load_model(model_filepath);
       
@@ -60,7 +61,8 @@ namespace nui
       mShader->set_tex_hdr(ibl_irradiance_filepath, "irradianceTex");
       mShader->set_tex_hdr(ibl_radiance_filepath, "radianceTex");
 
-      mSceneEnvIBL->load_background_texture(ibl_skybox_filepath);
+      nshaders::Shader* mSkyboxShader = mSceneEnvIBL->get_shader();
+      mSkyboxShader->set_tex_hdr(ibl_skybox_filepath, "skyboxTex");
   }
 
   void SceneView::render()
@@ -90,7 +92,6 @@ namespace nui
     mCamera->set_aspect(mSize.x / mSize.y);
     
     mCamera->update(mShader.get(), mSceneEnvIBL->get_shader());
-    //mCamera->update(mShader.get());
 
     // add rendered texture to ImGUI scene window
     uint64_t textureID = mFrameBuffer->get_texture();
