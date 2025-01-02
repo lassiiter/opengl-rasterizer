@@ -21,15 +21,14 @@ namespace nelems
 
         void update(nshaders::Shader* shader)
         {
-            // pbr color
-            shader->set_vec3(mColor, "albedo");
-            shader->set_f1(mRoughness, "roughness");
-            shader->set_f1(mMetallic, "metallic");
-            shader->set_f1(1.0f, "ao");
+            // update uniforms
+            shader->set_vec3(mColor, "u_tint");
+            shader->set_f1(mRoughness, "u_roughness");
+            shader->set_f1(mMetallic, "u_metallic");
         }
 
-        glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
-        float mRoughness = 0.2f;
-        float mMetallic = 0.1f;
+        glm::vec3 mColor = { 1.0f, 1.0f, 1.0f };
+        float mRoughness = 1.0f;
+        float mMetallic = 1.0f;
     };
 }

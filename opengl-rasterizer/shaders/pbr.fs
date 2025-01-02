@@ -6,10 +6,9 @@ in vec3 Normal;
 in vec2 TexCoords;
 
 // material parameters
-// uniform vec3 albedo;
+uniform vec3 u_tint;
 uniform float u_metallic;
 uniform float u_roughness;
-uniform float u_ao;
 
 layout(binding  = 3) uniform sampler2D albedoTex;
 layout(binding  = 4) uniform sampler2D ormTex;
@@ -70,6 +69,7 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
 {
     return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 } 
+
 // ----------------------------------------------------------------------------
 void main()
 {
@@ -83,12 +83,13 @@ void main()
 
   vec3 irradiance = texture(irradianceTex, vec2(phi, theta)).rgb;
   vec3 albedo = pow(texture(albedoTex, TexCoords).rgb, vec3(2.2));
+  albedo *= u_tint; 
   vec3 orm    = (texture(ormTex, TexCoords)).rgb;
   vec3 emissive    = (texture(emissiveTex, TexCoords)).rgb;
 
   float ao = orm.r;
-  float roughness = orm.b;
-  float metallic = orm.g;
+  float roughness = clamp((orm.b * u_roughness),0.,1.);
+  float metallic = clamp((orm.g * u_metallic),0.,1.);
   vec3 specular = textureLod(radianceTex, vec2(phi, theta),roughness * MAX_REFLECTION_LOD).rgb;
 
   // calculate reflectance at normal incidence; if dia-electric (like plastic) use F0 

@@ -20,9 +20,9 @@ namespace nui
 
     if (ImGui::CollapsingHeader("Material") && model)
     {
-      ImGui::ColorPicker3("Color", (float*)&model->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB);
-      ImGui::SliderFloat("Roughness", &model->mRoughness, 0.0f, 1.0f);
-      ImGui::SliderFloat("Metallic", &model->mMetallic, 0.0f, 1.0f);
+      ImGui::ColorPicker3("Tint", (float*)&model->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB);
+      ImGui::SliderFloat("Roughness Scalar", &model->mRoughness, 0.0f, 10.0f);
+      ImGui::SliderFloat("Metallic Scalar", &model->mMetallic, 0.0f, 10.0f);
       if (ImGui::Button("Albedo"))
       {
           mTexFileDialog.Open();
