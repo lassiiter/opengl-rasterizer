@@ -206,11 +206,6 @@
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="libs\assimp\LICENSE" />
-    <None Include="shaders\background.fs" />
-    <None Include="shaders\background.vs" />
-    <None Include="shaders\cubemap.fs" />
-    <None Include="shaders\cubemap.vs" />
-    <None Include="shaders\irradiance_convolution.fs" />
     <None Include="shaders\pbr.fs" />
     <None Include="shaders\pbr.vs" />
     <None Include="source\3rdparty\plugins\imgui\LICENSE" />

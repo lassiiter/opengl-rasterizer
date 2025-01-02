@@ -11,34 +11,23 @@ namespace nelems
     public:
         IBL()
         {
-            mEquirectangularToCubemapShader = std::make_unique<nshaders::Shader>();
-            mEquirectangularToCubemapShader->load("shaders/cubemap.vs", "shaders/cubemap.fs");
-
-            mIrradianceShader = std::make_unique<nshaders::Shader>();
-            mIrradianceShader->load("shaders/cubemap.vs", "shaders/irradiance_convolution.fs");
-
-            mBackgroundShader = std::make_unique<nshaders::Shader>();
-            mBackgroundShader->load("shaders/background.vs", "shaders/background.fs");
+            mSkyboxShader = std::make_unique<nshaders::Shader>();
+            mSkyboxShader->load("shaders/ibl.vs", "shaders/ibl.fs");
 
             mRenderBufferMgr = std::make_unique<nrender::OpenGL_VertexArrayBuffer>();
         }
         void render();
-        void load_background_texture(const std::string&);
-        void render_on_cube();
         
         nshaders::Shader* get_shader()
         {
-            return mBackgroundShader.get();
+            return mSkyboxShader.get();
         }
 
     private:
-        std::unique_ptr<nshaders::Shader> mEquirectangularToCubemapShader;
-        std::unique_ptr<nshaders::Shader> mIrradianceShader;
-        std::unique_ptr<nshaders::Shader> mBackgroundShader;
+        std::unique_ptr<nshaders::Shader> mSkyboxShader;
+
         // Buffers manager
         std::unique_ptr<nrender::VertexArrayBuffer> mRenderBufferMgr;
-        unsigned int cubeVAO = 0;
-        unsigned int cubeVBO = 0;
     };
 
 }
