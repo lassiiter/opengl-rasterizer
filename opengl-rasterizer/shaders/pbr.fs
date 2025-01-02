@@ -18,8 +18,7 @@ layout(binding  = 5) uniform sampler2D emissiveTex;
 layout(binding  = 7) uniform sampler2D irradianceTex;
 layout(binding  = 8) uniform sampler2D radianceTex;
 
-// mostly taken from https://learnopengl.com/code_viewer_gh.php?code=src/6.pbr/2.2.2.ibl_specular_textured/2.2.2.pbr.fs
-// lights
+//based on https://learnopengl.com/
 uniform vec3 lightPosition;
 uniform vec3 lightColor;
 
