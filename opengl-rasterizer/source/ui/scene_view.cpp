@@ -47,6 +47,7 @@ namespace nui
       std::string albedo_filepath = "resources/damaged_helmet/Default_albedo.jpg";
       std::string orm_filepath = "resources/damaged_helmet/Default_ORM.png";
       std::string emissive_filepath = "resources/damaged_helmet/Default_emissive.jpg";
+      std::string normal_filepath = "resources/damaged_helmet/Default_normal.jpg";
 
       std::string ibl_skybox_filepath = "resources/ibl/warm_restaurant/output_skybox.hdr";
       std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_iem.hdr";
@@ -58,6 +59,7 @@ namespace nui
       mShader->set_tex(albedo_filepath, "albedoTex");
       mShader->set_tex(orm_filepath, "ormTex");
       mShader->set_tex(emissive_filepath, "emissiveTex");
+      mShader->set_tex(normal_filepath, "normalTex");
       mShader->set_tex_hdr(ibl_irradiance_filepath, "irradianceTex");
       mShader->set_tex_hdr(ibl_radiance_filepath, "radianceTex");
 

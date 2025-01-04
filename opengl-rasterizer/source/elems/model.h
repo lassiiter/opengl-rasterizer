@@ -27,6 +27,7 @@ namespace nelems
             shader->set_f1(mMetallic, "u_metallic");
             shader->set_f1(mDiffuseIBLEnabled, "u_enable_IBL_diffuse");
             shader->set_f1(mSpecularIBLEnabled, "u_enable_IBL_specular");
+            shader->set_f1(mNormalEnabled, "u_enable_normal");
         }
 
         glm::vec3 mColor = { 1.0f, 1.0f, 1.0f };
@@ -34,5 +35,6 @@ namespace nelems
         float mMetallic = 1.0f;
         float mDiffuseIBLEnabled = 1.0f;
         float mSpecularIBLEnabled = 1.0f;
+        float mNormalEnabled = 1.0f;
     };
 }

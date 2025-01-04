@@ -29,6 +29,9 @@ namespace nui
       }
       ImGui::SameLine(0, 5.0f);
       ImGui::Text(mTexCurrentFile.c_str());
+      if (ImGui::Checkbox("Enable Normal Map", &mNormalEnabled)) {
+          model->mNormalEnabled = mNormalEnabled ? 1.0 : 0.0;
+      }
     }
 
     if (ImGui::CollapsingHeader("Lighting"))

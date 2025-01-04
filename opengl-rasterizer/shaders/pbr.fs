@@ -3,7 +3,9 @@
 out vec4 FragColor;
 in vec3 WorldPos;
 in vec3 Normal;
+in vec3 Tangents;
 in vec2 TexCoords;
+in mat3 TBN;
 
 // Material parameters
 uniform vec3 u_tint;
@@ -11,10 +13,12 @@ uniform float u_metallic;
 uniform float u_roughness;
 uniform float u_enable_IBL_specular;
 uniform float u_enable_IBL_diffuse;
+uniform float u_enable_normal;
 
 layout(binding  = 3) uniform sampler2D albedoTex;
 layout(binding  = 4) uniform sampler2D ormTex;
 layout(binding  = 5) uniform sampler2D emissiveTex;
+layout(binding  = 9) uniform sampler2D normalTex;
 
 layout(binding  = 7) uniform sampler2D irradianceTex;
 layout(binding  = 8) uniform sampler2D radianceTex;
@@ -165,7 +169,12 @@ vec3 fresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
 // ----------------------------------------------------------------------------
 void main()
 {
-    vec3 N = normalize(Normal);
+    vec3 normal = texture(normalTex, TexCoords).rgb;
+    normal = normalize(normal * 2.0 - 1.0); 
+    normal = normalize(TBN * normal); 
+    vec3 vertexNormal = normalize(Normal);
+    vec3 N = mix(vertexNormal, normal, u_enable_normal);
+
     vec3 V = normalize(camPos - WorldPos);
 
     // Convert to spherical coordinates for irradiance and radiance mapping
@@ -234,10 +243,9 @@ void main()
     vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
     specular *= u_enable_IBL_specular; // Turn off specular if required
 
-
     vec3 diffuse = irradiance * albedo;
     vec3 ambient = (kD * diffuse + specular) * ao;
-    
+
     // Final color: ambient + direct lighting (Lo)
     vec3 color = ambient + Lo;
 

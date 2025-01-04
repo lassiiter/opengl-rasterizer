@@ -27,6 +27,9 @@ namespace nrender
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)offsetof(nelems::VertexHolder, mTexCoords));
 
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)offsetof(nelems::VertexHolder, mTangents));
+
     glBindVertexArray(0);
 
   }
@@ -69,18 +72,20 @@ namespace nrender
 
       glGenBuffers(1, &mVBO);
 
+      unsigned int stride = (3 + 2 + 3) * sizeof(float);
+
       glBindVertexArray(mVAO);
       glBindBuffer(GL_ARRAY_BUFFER, mVBO);
       glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(unsigned int), vertices.data(), GL_STATIC_DRAW);
 
       glEnableVertexAttribArray(0);
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)0);
+      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
 
       glEnableVertexAttribArray(1);
-      glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)offsetof(nelems::VertexHolder, mNormal));
+      glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(nelems::VertexHolder, mNormal));
 
       glEnableVertexAttribArray(2);
-      glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(nelems::VertexHolder), (void*)offsetof(nelems::VertexHolder, mTexCoords));
+      glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(nelems::VertexHolder, mTexCoords));
 
       glBindVertexArray(0);
 

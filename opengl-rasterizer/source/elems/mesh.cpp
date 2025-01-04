@@ -34,6 +34,7 @@ namespace nelems
         vh.mPos = { mesh->mVertices[i].x, mesh->mVertices[i].y ,mesh->mVertices[i].z };
         vh.mNormal = { mesh->mNormals[i].x, mesh->mNormals[i].y ,mesh->mNormals[i].z };
         vh.mTexCoords = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y}; //TODO: Multiple UV Sets
+        vh.mTangents = { mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z }; 
 
         add_vertex(vh);
       }

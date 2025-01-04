@@ -26,6 +26,7 @@ namespace nshaders
 			texture_uniform_id["skyboxTex"] = 6;
 			texture_uniform_id["irradianceTex"] = 7;
 			texture_uniform_id["radianceTex"] = 8;
+			texture_uniform_id["normalTex"] = 9;
 
 			texture_unit_map["albedoTex"] = GL_TEXTURE3;
 			texture_unit_map["ormTex"] = GL_TEXTURE4;
@@ -33,6 +34,8 @@ namespace nshaders
 			texture_unit_map["skyboxTex"] = GL_TEXTURE6;
 			texture_unit_map["irradianceTex"] = GL_TEXTURE7;
 			texture_unit_map["radianceTex"] = GL_TEXTURE8;
+			texture_unit_map["normalTex"] = GL_TEXTURE9;
+
 		}
 
 		// Load a vertex and a fragment shader from file

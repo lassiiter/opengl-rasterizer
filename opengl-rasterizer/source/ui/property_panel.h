@@ -48,6 +48,7 @@ namespace nui
     std::string mTexCurrentFile;
     bool mDiffuseIBLEnabled = true;
     bool mSpecularIBLEnabled = true;
+    bool mNormalEnabled = true;
   };
 }
 
