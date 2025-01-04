@@ -28,9 +28,6 @@ uniform vec3 camPos;
 
 const float PI = 3.14159265359;
 const float MAX_REFLECTION_LOD = 4.0;
-
-// variation of https://learnopengl.com/
-
 // ----------------------------------------------------------------------------
 // http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html
 // efficient VanDerCorpus calculation.

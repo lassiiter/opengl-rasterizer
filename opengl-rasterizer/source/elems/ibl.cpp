@@ -5,7 +5,6 @@
 
 namespace nelems
 {
-
     void IBL::render()
     {
         mSkyboxShader->use();
