@@ -25,6 +25,9 @@ namespace nwindow
     mPropertyPanel->set_texture_load_callback(
         [this](std::string filepath, std::string texture_filename) { mSceneView->load_texture(filepath, texture_filename); });
 
+    mPropertyPanel->set_ibl_load_callback(
+        [this](std::string x, std::string y, std::string z) { mSceneView->load_ibl(x, y, z); });
+
     return mIsRunning;
   }
 

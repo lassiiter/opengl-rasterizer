@@ -39,6 +39,16 @@ namespace nui
       mShader->set_tex(filepath, texture_name);
   }
 
+  void SceneView::load_ibl(const std::string& ibl_skybox_filepath, const std::string& ibl_irradiance_filepath, const std::string& ibl_radiance_filepath)
+  {
+      std::cout << "Loading IBL at" << ibl_skybox_filepath << std::endl;
+
+      mShader->set_tex_hdr(ibl_irradiance_filepath, "irradianceTex");
+      mShader->set_tex_hdr(ibl_radiance_filepath, "radianceTex");
+      nshaders::Shader* mSkyboxShader = mSceneEnvIBL->get_shader();
+      mSkyboxShader->set_tex_hdr(ibl_skybox_filepath, "skyboxTex");
+  }
+
   void SceneView::load_starting_scene()
   {
       //TODO im sure these make more sense somewhere else

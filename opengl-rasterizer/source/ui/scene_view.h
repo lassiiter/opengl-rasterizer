@@ -44,6 +44,8 @@ namespace nui
 
     void load_model(const std::string& filepath);
     void load_texture(const std::string& filepath, const std::string& texture_name);
+    void load_ibl(const std::string& ibl_skybox_filepath, const std::string& ibl_irradiance_filepath, const std::string& ibl_radiance_filepath);
+
     void load_starting_scene();
 
     void set_model(std::shared_ptr<nelems::Model> mesh)

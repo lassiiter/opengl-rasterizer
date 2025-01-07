@@ -36,6 +36,41 @@ namespace nui
 
     if (ImGui::CollapsingHeader("Lighting"))
     {
+        if (ImGui::Button("Canary Wharf", ImVec2(210.,30.))) {
+            std::string ibl_skybox_filepath = "resources/ibl/canary_wharf/output_skybox.hdr";
+            std::string ibl_irradiance_filepath = "resources/ibl/canary_wharf/output_iem.hdr";
+            std::string ibl_radiance_filepath = "resources/ibl/canary_wharf/output_pmrem.hdr";
+
+            mIBLLoadCallback(ibl_skybox_filepath, ibl_irradiance_filepath, ibl_radiance_filepath);
+        }
+        if (ImGui::Button("Warm Restaurant", ImVec2(210., 30.))) {
+            std::string ibl_skybox_filepath = "resources/ibl/warm_restaurant/output_skybox.hdr";
+            std::string ibl_irradiance_filepath = "resources/ibl/warm_restaurant/output_iem.hdr";
+            std::string ibl_radiance_filepath = "resources/ibl/warm_restaurant/output_pmrem.hdr";
+
+            mIBLLoadCallback(ibl_skybox_filepath, ibl_irradiance_filepath, ibl_radiance_filepath);
+        }
+        if (ImGui::Button("Small Studio", ImVec2(210., 30.))) {
+            std::string ibl_skybox_filepath = "resources/ibl/studio_small/output_skybox.hdr";
+            std::string ibl_irradiance_filepath = "resources/ibl/studio_small/output_iem.hdr";
+            std::string ibl_radiance_filepath = "resources/ibl/studio_small/output_pmrem.hdr";
+
+            mIBLLoadCallback(ibl_skybox_filepath, ibl_irradiance_filepath, ibl_radiance_filepath);
+        }
+        if (ImGui::Button("Gym Entrace", ImVec2(210., 30.))) {
+            std::string ibl_skybox_filepath = "resources/ibl/gym_entrace/output_skybox.hdr";
+            std::string ibl_irradiance_filepath = "resources/ibl/gym_entrace/output_iem.hdr";
+            std::string ibl_radiance_filepath = "resources/ibl/gym_entrace/output_pmrem.hdr";
+
+            mIBLLoadCallback(ibl_skybox_filepath, ibl_irradiance_filepath, ibl_radiance_filepath);
+        }
+        if (ImGui::Button("Studio Garden", ImVec2(210., 30.))) {
+            std::string ibl_skybox_filepath = "resources/ibl/studio_garden/output_skybox.hdr";
+            std::string ibl_irradiance_filepath = "resources/ibl/studio_garden/output_iem.hdr";
+            std::string ibl_radiance_filepath = "resources/ibl/studio_garden/output_pmrem.hdr";
+
+            mIBLLoadCallback(ibl_skybox_filepath, ibl_irradiance_filepath, ibl_radiance_filepath);
+        }
 
       ImGui::Separator();
       ImGui::Text("Direct Light Position");

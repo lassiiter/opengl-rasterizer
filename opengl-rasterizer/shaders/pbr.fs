@@ -179,11 +179,12 @@ void main()
 
     // Convert to spherical coordinates for irradiance and radiance mapping
     vec3 R = reflect(V, N);
-    float phi = atan(R.z, R.x) / (2.0 * 3.14159265359) + 0.5; // Longitude
+    //r.z, r.x negative give correct reflections
+    float phi = atan(-R.z, -R.x) / (2.0 * 3.14159265359) + 0.5; // Longitude
     float theta = acos(R.y) / 3.14159265359; // Latitude
 
     // Sampling textures
-    vec3 irradiance = texture(irradianceTex, vec2(phi, theta)).rgb;
+    vec3 irradiance = texture(irradianceTex, vec2(phi, theta)).rgb; // Sample latlong coordinates
     vec3 albedo = pow(texture(albedoTex, TexCoords).rgb, vec3(2.2)); // Gamma correction
     vec3 orm    = texture(ormTex, TexCoords).rgb;
     vec3 emissive = texture(emissiveTex, TexCoords).rgb;

@@ -36,6 +36,11 @@ namespace nui
         mTexLoadCallback = callback;
     }
 
+    void set_ibl_load_callback(const std::function<void(const std::string&, const std::string&, const std::string&)>& callback)
+    {
+        mIBLLoadCallback = callback;
+    }
+
   private:
     // create a file browser instance
     ImGui::FileBrowser mFileDialog;
@@ -43,6 +48,7 @@ namespace nui
 
     std::function<void(const std::string&)> mMeshLoadCallback;
     std::function<void(const std::string&, const std::string&)> mTexLoadCallback;
+    std::function<void(const std::string&, const std::string&, const std::string&)>mIBLLoadCallback;
 
     std::string mCurrentFile;
     std::string mTexCurrentFile;
